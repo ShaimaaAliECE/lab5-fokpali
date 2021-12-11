@@ -1,0 +1,43 @@
+
+<body>
+    <style> 
+        body { font-size: 15;
+           background-color: black;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            color:aliceblue
+        }
+    </style>
+   <h1>Favour's Epic Lab 5!!</h1>
+  
+    Enter a city to search for jobs in: <input type="text" id='city'>
+    <button id='submit'>Submit</button>
+    <div id="divid"></div>
+
+   <script>
+    //initialize text and button
+    let text=document.getElementById('city');
+    let btn= document.getElementById('submit');
+    //submit button
+    btn.onclick=submit;
+
+    //lets user submit city and sends xml request to return cities in joblist
+    function submit()
+    {
+        let xReq=new XMLHttpRequest();
+        xReq.onreadystatechange=doNothing;
+        xReq.open('GET','/jobs-in-a-given-city?city='+text.value, true);
+        xReq.send();
+    }
+    function doNothing()
+    {
+        let divid= document.getElementById('divid');
+        if (this.readyState==4 &&this.status==200)
+        {
+            divid.innerHTML=this.responseText;
+        }
+    }
+    </script>
+  
+</body>
+</html>
